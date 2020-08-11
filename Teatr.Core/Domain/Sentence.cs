@@ -11,9 +11,9 @@ namespace Teatr.Core.Domain
         public IEnumerable<Character> Characters => _characters;
         public string Text { get; set; }
 
-        public Sentence(Guid id, string text)
+        public Sentence(Scene scene, string text)
         {
-            Id = id;
+            SceneId = scene.Id;
             Text = text;
         }
         protected Sentence()

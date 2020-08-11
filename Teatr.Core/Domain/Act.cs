@@ -15,9 +15,9 @@ namespace Teatr.Core.Domain
         public string Title { get; protected set; }
         public IEnumerable<Scene> Acts => _acts;
 
-        public Act(Guid id, string stageDirections, string descritpion, int number, string title)
+        public Act(Drama drama, string stageDirections, string descritpion, int number, string title)
         {
-            Id = id;
+            dramaId = drama.Id;
             StageDirections = stageDirections;
             Description = descritpion;
             Number = number;

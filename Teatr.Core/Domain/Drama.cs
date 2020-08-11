@@ -20,7 +20,7 @@ namespace Teatr.Core.Domain
         {
 
         }
-        void AddRole()
+        public void AddAct(Drama drama)
         {
 
         }

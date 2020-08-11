@@ -15,9 +15,9 @@ namespace Teatr.Core.Domain
         public string Gender { get; protected set; }
         public string Description { get; protected set; }
 
-        public Character(Guid id, string name, string age, string desciption)
+        public Character(Sentence sentence, string name, string age, string desciption)
         {
-            Id = id;
+            Id = sentence.Id;
             Name = name;
             Age = age;
             Description = desciption;
