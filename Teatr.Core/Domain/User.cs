@@ -25,6 +25,7 @@ namespace Teatr.Core.Domain
 
         protected User()
         {
+
         }
     }
 }

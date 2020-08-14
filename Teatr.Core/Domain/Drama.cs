@@ -6,10 +6,11 @@ namespace Teatr.Core.Domain
 {
     public class Drama : Entity
     {
-        private ISet<Scene> _acts = new HashSet<Scene>();
+        private ISet<Act> _acts = new HashSet<Act>();
         public string Title { get; protected set; }
         public string Author { get; protected set; }
-        public IEnumerable<Scene> Acts => _acts;
+        public string Description { get; set; }
+        public IEnumerable<Act> Acts => _acts;
         public Drama(Guid id, string title, string author)
         {
             Id = id;
@@ -20,9 +21,9 @@ namespace Teatr.Core.Domain
         {
 
         }
-        public void AddAct(Drama drama)
+        public void AddAct(Drama drama, string stageDirections, string description, int number, string title)
         {
-
+            _acts.Add(new Act(this, stageDirections, description, number, title));
         }
     }
 }

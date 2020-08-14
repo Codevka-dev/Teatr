@@ -8,12 +8,12 @@ namespace Teatr.Core.Domain
     {
         public Guid dramaId { get; protected set; }
 
-        private ISet<Scene> _acts = new HashSet<Scene>();
+        private ISet<Scene> _scenes = new HashSet<Scene>();
         public string StageDirections { get; protected set; }
         public string Description { get; protected set; }
         public int Number { get; protected set; }
         public string Title { get; protected set; }
-        public IEnumerable<Scene> Acts => _acts;
+        public IEnumerable<Scene> Acts => _scenes;
 
         public Act(Drama drama, string stageDirections, string descritpion, int number, string title)
         {
@@ -28,5 +28,11 @@ namespace Teatr.Core.Domain
         {
 
         }
+
+        public void AddScene(string stageDirections, string description, int number, string title)
+        {
+            _scenes.Add(new Scene(this, stageDirections, description, number, title));
+        }
+
     }
 }
