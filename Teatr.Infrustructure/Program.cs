@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Teatr.Infrustructure
+namespace Teatr.Infrastructure
 {
     class Program
     {

@@ -9,10 +9,10 @@ namespace Teatr.Core.Repositories
     public interface IUserRepository
     {
         Task<User> GetAsync(Guid id);
-        Task<User> GetAsync(string name);
-        Task<IEnumerable<User>> BrowseAsync(string name = "");
-        Task<User> AddAsync(User scene);
-        Task<User> UpdateAsync(User scene);
-        Task<User> DeleteAsync(User scene);
+        Task<User> GetAsync(string email);
+        Task<IEnumerable<User>> BrowseAsync(string email = "");
+        Task AddAsync(User scene);
+        Task UpdateAsync(User scene);
+        Task DeleteAsync(User scene);
     }
 }

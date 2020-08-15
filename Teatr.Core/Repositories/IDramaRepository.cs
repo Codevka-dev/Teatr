@@ -11,8 +11,8 @@ namespace Teatr.Core.Repositories
         Task<Drama> GetAsync(Guid id);
         Task<Drama> GetAsync(string title);
         Task<IEnumerable<Drama>> BrowseAsync(string title = "");
-        Task<Drama> AddAsync(Drama drama);
-        Task<Drama> UpdateAsync(Drama drama);
-        Task<Drama> DeleteAsync(Drama drama);
+        Task AddAsync(Drama drama);
+        Task UpdateAsync(Drama drama);
+        Task DeleteAsync(Drama drama);
     }
 }
