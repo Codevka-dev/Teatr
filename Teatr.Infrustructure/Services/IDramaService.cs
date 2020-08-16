@@ -12,7 +12,7 @@ namespace Teatr.Infrastructure.Services
         Task<DramaDto> GetAsync(Guid id);
         Task<DramaDto> GetAsync(string title);
         Task<IEnumerable<DramaDto>> BrowseAsync(string title = null);
-        Task CreateAsync(Guid id, string title, string stageDirections, string description, int number);
+        Task CreateAsync(Guid id, string title, string author, string description);
         Task AddActAsync(Guid dramaId, string title, string stageDirections, string description, int number);
         Task UpdateAsync(DramaDto drama);
         Task DeleteAsync(DramaDto drama);

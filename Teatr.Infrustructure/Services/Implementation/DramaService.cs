@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Teatr.Core.Domain;
 using Teatr.Core.Repositories;
 using Teatr.Infrastructure.DTO;
 
@@ -52,21 +53,30 @@ namespace Teatr.Infrastructure.Services.Implementation
 
             return _mapper.Map<IEnumerable<DramaDto>>(drama);
         }
+
         public async Task AddActAsync(Guid dramaId, string title, string stageDirections, string description, int number)
         {
             throw new NotImplementedException();
         }
-        public async Task CreateAsync(Guid id, string title, string stageDirections, string description, int number)
+
+        public async Task CreateAsync(Guid id, string title, string author, string description)
         {
-            throw new NotImplementedException();
+            var drama = await _dramaRepository.GetAsync(title);
+
+            if (drama != null)
+            {
+                throw new Exception("Drama already exists");
+            }
+
+            drama = new Drama(id, title, author);
+
+            await _dramaRepository.AddAsync(drama);
         }
 
         public async Task DeleteAsync(DramaDto drama)
         {
             throw new NotImplementedException();
         }
-
-
 
         public async Task UpdateAsync(DramaDto drama)
         {
