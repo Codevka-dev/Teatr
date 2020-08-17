@@ -14,6 +14,11 @@ namespace Teatr.Infrastructure.Mappers
         {
             cfg.CreateMap<Drama, DramaDto>()
                   .ForMember(x => x.ActsCount, m => m.MapFrom(p => p.Acts.Count()));
+            cfg.CreateMap<Act, ActDto>();
+            cfg.CreateMap<Scene, SceneDto>();
+            cfg.CreateMap<Sentence, SentenceDto>();
+            cfg.CreateMap<Character, CharacterDto>();
+
         })
             .CreateMapper();
 

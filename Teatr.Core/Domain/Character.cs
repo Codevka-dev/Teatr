@@ -15,12 +15,13 @@ namespace Teatr.Core.Domain
         public string Gender { get; protected set; }
         public string Description { get; protected set; }
 
-        public Character(Sentence sentence, string name, int age, string desciption)
+        public Character(Sentence sentence, string name, int age, string desciption,string gender)
         {
             Id = sentence.Id;
             Name = name;
             Age = age;
             Description = desciption;
+            Gender = gender;
         }
         protected Character()
         {

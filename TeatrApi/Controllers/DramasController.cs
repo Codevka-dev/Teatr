@@ -29,7 +29,7 @@ namespace TeatrApi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var dramas = await _dramaService.Get(id);
+            var dramas = await _dramaService.
 
             return Json(dramas);
         }
@@ -48,7 +48,7 @@ namespace TeatrApi.Controllers
         {
             command.DramaId = Guid.NewGuid();
 
-            await _dramaService.CreateAsync(command.DramaId, command.DramaTitle, command.DramaAuthor, command.DramaDescription);
+            await _dramaService.CreateAsync(command.DramaId, command.Title, command.Author, command.Description);
 
             return Created($"/dramas/{command.DramaId}", null);
         }
