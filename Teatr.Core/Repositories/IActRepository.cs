@@ -9,6 +9,7 @@ namespace Teatr.Core.Repositories
     public interface IActRepository
     {
         Task<Act> GetAsync(Guid id);
+        Task<Act> GetAsync(int number);
         Task AddAsync(Act Act);
         Task UpdateAsync(Act Act);
         Task DeleteAsync(Act Act);

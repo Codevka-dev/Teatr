@@ -6,7 +6,7 @@ using Teatr.Core.Domain;
 
 namespace Teatr.Core.Repositories
 {
-    public interface ISentenceReposiotry
+    public interface ISentenceRepository
     {
         Task<Sentence> GetAsync(Guid id);
         Task AddAsync(Sentence Sentence);

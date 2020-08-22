@@ -8,6 +8,7 @@ namespace Teatr.Core.Repositories
 {
     public interface ISceneRepository
     {
+        Task<Scene> GetAsync(int number);
         Task<Scene> GetAsync(Guid id);
         Task AddAsync(Scene Scene);
         Task UpdateAsync(Scene Scene);

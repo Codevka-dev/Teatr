@@ -7,24 +7,22 @@ namespace Teatr.Core.Domain
     public class Sentence : Entity
     {
         public Guid SceneId { get; protected set; }
-
+        public Guid CharacterId { get; protected set; }
         private ISet<Character> _characters = new HashSet<Character>();
         public IEnumerable<Character> Characters => _characters;
         public string Text { get; set; }
 
-        public Sentence(Scene scene, string text)
+        public Sentence(Guid id,Guid sceneId,Guid characterId, string text)
         {
-            SceneId = scene.Id;
+            Id = id;
+            SceneId = sceneId;
+            CharacterId = characterId;
+            SceneId = sceneId;
             Text = text;
         }
         protected Sentence()
         {
 
-        }
-
-        public void AddCharacter(string name, int age, string description)
-        {
-            _characters.Add(new Character(this, name, age, description));
         }
     }
 }

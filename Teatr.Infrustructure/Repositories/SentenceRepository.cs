@@ -8,7 +8,7 @@ using Teatr.Core.Repositories;
 
 namespace Teatr.Infrastructure.Repositories
 {
-    public class SentenceRepository : ISentenceReposiotry
+    public class SentenceRepository : ISentenceRepository
     {
         protected static readonly ISet<Sentence> _sentences = new HashSet<Sentence>();
         public async Task AddAsync(Sentence Sentence)

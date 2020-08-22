@@ -6,7 +6,7 @@ namespace Teatr.Core.Domain
 {
     public class Act : Entity
     {
-        public Guid dramaId { get; protected set; }
+        public Guid DramaId { get; protected set; }
 
         private ISet<Scene> _scenes = new HashSet<Scene>();
         public string StageDirections { get; protected set; }
@@ -15,9 +15,10 @@ namespace Teatr.Core.Domain
         public string Title { get; protected set; }
         public IEnumerable<Scene> Acts => _scenes;
 
-        public Act(Drama drama, string stageDirections, string descritpion, int number, string title)
+        public Act(Guid id,Guid dramaId, string stageDirections, string descritpion, int number, string title)
         {
-            dramaId = drama.Id;
+            Id = id;
+            DramaId = dramaId;
             StageDirections = stageDirections;
             Description = descritpion;
             Number = number;

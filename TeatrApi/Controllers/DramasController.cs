@@ -18,18 +18,12 @@ namespace TeatrApi.Controllers
         {
             _dramaService = dramaService;
         }
-        // GET: api/Drama
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
         // GET: api/Drama/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var dramas = await _dramaService.
+            var dramas = await _dramaService.GetAsync(id);
 
             return Json(dramas);
         }
@@ -48,16 +42,23 @@ namespace TeatrApi.Controllers
         {
             command.DramaId = Guid.NewGuid();
 
-            await _dramaService.CreateAsync(command.DramaId, command.Title, command.Author, command.Description);
+            await _dramaService.CreateAsync(command.DramaId, command.Title, command.Author,
+                command.Description);
 
             return Created($"/dramas/{command.DramaId}", null);
         }
 
-        // PUT: api/Drama/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdateDrama command)
         {
+            command.DramaId = Guid.NewGuid();
+
+            await _dramaService.UpdateAsync(command.DramaId, command.Title,
+                command.Author, command.Description);
+
+            return NoContent();
         }
+
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]

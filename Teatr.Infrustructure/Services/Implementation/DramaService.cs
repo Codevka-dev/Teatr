@@ -77,10 +77,23 @@ namespace Teatr.Infrastructure.Services.Implementation
         {
             throw new NotImplementedException();
         }
-
-        public async Task UpdateAsync(DramaDto drama)
+        public async Task UpdateAsync(Guid id, string title, string author, string description)
         {
-            throw new NotImplementedException();
+            var drama = await _dramaRepository.GetAsync(id);
+
+            if (drama == null)
+            {
+                throw new Exception($"Drama name : {id} not exists");
+            }
+
+            drama = await _dramaRepository.GetAsync(title);
+
+            if (drama != null)
+            {
+                throw new Exception($"Drama name : {title} already exists");
+            }
+
+            await _dramaRepository.UpdateAsync(drama);
         }
     }
 }

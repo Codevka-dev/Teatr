@@ -8,6 +8,8 @@ namespace Teatr.Core.Domain
     {
         public Guid? ActorId { get; protected set; }
 
+        public Guid? SentenceId { get; protected set; }
+
         private ISet<User> _actors = new HashSet<User>();
         public IEnumerable<User> Actors => _actors;
         public string Name { get; protected set; }
@@ -15,9 +17,10 @@ namespace Teatr.Core.Domain
         public string Gender { get; protected set; }
         public string Description { get; protected set; }
 
-        public Character(Sentence sentence, string name, int age, string desciption,string gender)
+        public Character(Guid id,Guid sentenceId, string name, int age, string desciption,string gender)
         {
-            Id = sentence.Id;
+            Id = id;
+            SentenceId = sentenceId;
             Name = name;
             Age = age;
             Description = desciption;

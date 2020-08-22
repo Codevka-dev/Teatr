@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Teatr.Core.Domain;
 
 namespace Teatr.Infrastructure.Commands.Dramas
 {
-    public class CreateDrama
+    public class UpdateDrama
     {
         public Guid DramaId { get; set; }
         public string StageDirections { get; set; }
@@ -15,4 +14,3 @@ namespace Teatr.Infrastructure.Commands.Dramas
         public string Author { get; set; }
     }
 }
-

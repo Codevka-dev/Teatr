@@ -27,6 +27,11 @@ namespace Teatr.Infrastructure.Repositories
         public async Task<Act> GetAsync(Guid id) =>     
             await Task.FromResult(_acts.SingleOrDefault(x => x.Id == id));
 
+        public Task<Act> GetAsync(int number)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task UpdateAsync(Act Act)
         {
             throw new NotImplementedException();

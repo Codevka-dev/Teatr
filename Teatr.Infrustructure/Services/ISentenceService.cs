@@ -10,10 +10,8 @@ namespace Teatr.Infrastructure.Services
     public interface ISentenceService
     {
         Task<SentenceDto> GetAsync(Guid id);
-        Task<SentenceDto> GetAsync(string title);
-        Task<IEnumerable<SentenceDto>> BrowseAsync(string title = null);
-        Task CreateAsync(Guid id, string title, string author, string description);
-        Task AddActAsync(Guid SentenceId, string title, string stageDirections, string description, int number);
+        Task CreateAsync(Guid id, Guid sceneId, Guid characterId,string text);
+        Task AddCharacterAsync(Guid SentenceId, string name, int age, string description);
         Task UpdateAsync(SentenceDto Sentence);
         Task DeleteAsync(SentenceDto Sentence);
     }
