@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Teatr.Core.Domain;
 using Teatr.Core.Repositories;
 using Teatr.Infrastructure.DTO;
+using Teatr.Infrastructure.Extensions;
 
 namespace Teatr.Infrastructure.Services.Implementation
 {
@@ -19,7 +20,7 @@ namespace Teatr.Infrastructure.Services.Implementation
             _sceneRepository = sceneRepository;
             _mapper = mapper;
         }
-        public async Task<SceneDto> GetAsync(Guid id)
+        public async Task<SceneDetailsDto> GetAsync(Guid id)
         {
             var Scene = await _sceneRepository.GetAsync(id);
 
@@ -28,10 +29,10 @@ namespace Teatr.Infrastructure.Services.Implementation
                 return null;
             }
 
-            return _mapper.Map<SceneDto>(Scene);
+            return _mapper.Map<SceneDetailsDto>(Scene);
         }
 
-        public async Task<SceneDto> GetAsync(int number)
+        public async Task<SceneDetailsDto> GetAsync(int number)
         {
             var Scene = await _sceneRepository.GetAsync(number);
 
@@ -40,7 +41,7 @@ namespace Teatr.Infrastructure.Services.Implementation
                 return null;
             }
 
-            return _mapper.Map<SceneDto>(Scene);
+            return _mapper.Map<SceneDetailsDto>(Scene);
         }
 
         public async Task CreateAsync(Guid id,Guid actId, string stageDirections, string desciption, int number, string title)
@@ -57,14 +58,29 @@ namespace Teatr.Infrastructure.Services.Implementation
             await _sceneRepository.AddAsync(Scene);
         }
 
-        public async Task DeleteAsync(SceneDto Scene)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var scene = await _sceneRepository.GetOrFailAsync(id);
+            await _sceneRepository.DeleteAsync(scene);
         }
 
-        public async Task UpdateAsync(SceneDto Scene)
+        public async Task UpdateAsync(Guid id, Guid actId, string stageDirections, string desciption, int number, string title)
         {
-            throw new NotImplementedException();
+            var scene = await _sceneRepository.GetOrFailAsync(id);
+            scene = await _sceneRepository.GetAsync(number);
+
+            if (scene != null)
+            {
+                throw new Exception($"Scene name : {title} already exists");
+            }
+
+            scene.UpdateActId(actId)
+                .UpdateDescription(desciption)
+                .UpdateNumber(number)
+                .UpdateTitle(title)
+                .UpdateStageDirections(stageDirections);
+
+            await _sceneRepository.UpdateAsync(scene);
         }
     }
 }

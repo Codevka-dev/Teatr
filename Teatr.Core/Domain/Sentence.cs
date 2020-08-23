@@ -24,5 +24,26 @@ namespace Teatr.Core.Domain
         {
 
         }
+
+        public Sentence UpdateSceneId(Guid sceneId)
+        {
+            SceneId = sceneId;
+
+            return this;
+        }
+
+        public Sentence UpdateCharacterId(Guid characterId)
+        {
+            CharacterId = characterId;
+
+            return this;
+        }
+
+        public Sentence UpdateText(string text)
+        {
+            Text = text;
+
+            return this;
+        }
     }
 }

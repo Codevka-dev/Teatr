@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Teatr.Core.Domain;
 using Teatr.Core.Repositories;
 using Teatr.Infrastructure.DTO;
+using Teatr.Infrastructure.Extensions;
 
 namespace Teatr.Infrastructure.Services.Implementation
 {
@@ -38,19 +39,27 @@ namespace Teatr.Infrastructure.Services.Implementation
             await _sentenceRepository.AddAsync(sentence);
         }
 
-        public async Task DeleteAsync(SentenceDto Sentence)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var sentence = await _sentenceRepository.GetOrFailAsync(id);
+            await _sentenceRepository.DeleteAsync(sentence);
         }
 
-        public async Task UpdateAsync(SentenceDto Sentence)
+        public async Task UpdateAsync(Guid id, Guid sceneId, Guid characterId, string text)
         {
-            throw new NotImplementedException();
+            var sentence = await _sentenceRepository.GetOrFailAsync(id);
+
+            sentence.UpdateSceneId(sceneId)
+                .UpdateCharacterId(characterId)
+                .UpdateText(text);
+
+
+            await _sentenceRepository.UpdateAsync(sentence);
         }
 
         public Task AddCharacterAsync(Guid SentenceId, string name, int age, string description)
         {
-            _sentenceRepository.
+            throw new NotImplementedException();
         }
     }
 }

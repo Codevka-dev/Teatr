@@ -29,9 +29,36 @@ namespace Teatr.Core.Domain
 
         }
 
-        public void AddSentence(string text)
+        public Scene UpdateActId(Guid actId)
         {
-            _sentences.Add(new Sentence(this, text));
+            ActId = actId;
+
+            return this;
+        }
+
+        public Scene UpdateStageDirections(string stageDirections)
+        {
+            StageDirections = stageDirections;
+
+            return this;
+        }
+        public Scene UpdateDescription(string description)
+        {
+            Description = description;
+
+            return this;
+        }
+        public Scene UpdateNumber(int number)
+        {
+            Number = number;
+
+            return this;
+        }
+        public Scene UpdateTitle(string title)
+        {
+            Title = title;
+
+            return this;
         }
     }
 }

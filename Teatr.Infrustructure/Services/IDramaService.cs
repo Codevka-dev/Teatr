@@ -9,12 +9,12 @@ namespace Teatr.Infrastructure.Services
 {
     public interface IDramaService
     {
-        Task<DramaDto> GetAsync(Guid id);
-        Task<DramaDto> GetAsync(string title);
+        Task<DramaDetailsDto> GetAsync(Guid id);
+        Task<DramaDetailsDto> GetAsync(string title);
         Task<IEnumerable<DramaDto>> BrowseAsync(string title = null);
         Task CreateAsync(Guid id, string title, string author, string description);
-        Task AddActAsync(Guid dramaId, string title, string stageDirections, string description, int number);
+        Task AddActAsync(Guid id, string title, string stageDirections, string description, int number);
         Task UpdateAsync(Guid id, string title, string author, string description);
-        Task DeleteAsync(DramaDto drama);
+        Task DeleteAsync(Guid id);
     }
 }

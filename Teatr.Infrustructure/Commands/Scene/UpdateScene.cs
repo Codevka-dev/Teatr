@@ -6,6 +6,7 @@ namespace Teatr.Infrastructure.Commands.Scene
 {
     public class UpdateScene
     {
+        public Guid ActId { get; set; }
         public Guid SceneId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }

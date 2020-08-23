@@ -14,17 +14,17 @@ namespace TeatrApi.Controllers
     [ApiController]
     public class ActsController : Controller
     {
-        private readonly IActService _ActService;
+        private readonly IActService _actService;
         public ActsController(IActService ActService)
         {
-            _ActService = ActService;
+            _actService = ActService;
         }
 
         // GET: api/Act/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var Acts = await _ActService.GetAsync(id);
+            var Acts = await _actService.GetAsync(id);
 
             return Json(Acts);
         }
@@ -35,35 +35,30 @@ namespace TeatrApi.Controllers
         {
             command.ActId = Guid.NewGuid();
 
-            await _ActService.CreateAsync(command.ActId,command.DramaId,command.ActTitle 
-                ,command.ActDescription, command.ActNumber, command.ActStageDirections);
+            await _actService.CreateAsync(command.ActId, command.DramaId, command.ActTitle
+                , command.ActDescription, command.ActNumber, command.ActStageDirections);
 
             return Created($"/Acts/{command.ActId}", null);
         }
-
-        public async Task UpdateAsync(Guid id, string title, string author, string description)
+        [HttpPut("{actId}")]
+        public async Task<IActionResult> Put(Guid actId, [FromBody] UpdateAct command)
         {
-            var drama = await _dramaRepository.GetAsync(id);
+            await _actService.UpdateAsync(actId, command.DramaId, command.ActTitle,
+                command.ActDescription, command.ActNumber, command.ActStageDirections);
 
-            if (drama == null)
-            {
-                throw new Exception($"Drama name : {id} not exists");
-            }
-
-            drama = await _dramaRepository.GetAsync(title);
-
-            if (drama != null)
-            {
-                throw new Exception($"Drama name : {title} already exists");
-            }
-
-            await _dramaRepository.UpdateAsync(drama);
+            return NoContent();
         }
 
+
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{actId}")]
+        public async Task<IActionResult> Delete(Guid actId)
         {
+            await _actService.DeleteAsync(actId);
+
+            return NoContent();
         }
     }
 }
+
+

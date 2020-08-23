@@ -48,12 +48,10 @@ namespace TeatrApi.Controllers
             return Created($"/dramas/{command.DramaId}", null);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UpdateDrama command)
+        [HttpPut("{dramaId}")]
+        public async Task<IActionResult> Put(Guid dramaId,[FromBody] UpdateDrama command)
         {
-            command.DramaId = Guid.NewGuid();
-
-            await _dramaService.UpdateAsync(command.DramaId, command.Title,
+            await _dramaService.UpdateAsync(dramaId, command.Title,
                 command.Author, command.Description);
 
             return NoContent();
@@ -61,9 +59,12 @@ namespace TeatrApi.Controllers
 
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{dramaId}")]
+        public async Task<IActionResult> Delete(Guid dramaId)
         {
+            await _dramaService.DeleteAsync(dramaId);
+
+            return NoContent();
         }
     }
 }

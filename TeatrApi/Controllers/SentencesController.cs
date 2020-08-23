@@ -42,21 +42,24 @@ namespace TeatrApi.Controllers
         }
 
         // PUT: api/Drama/5
-        [HttpPut]
-        public async Task<IActionResult> Put([FromBody] CreateSentence command)
+        [HttpPut("sentenceId")]
+        public async Task<IActionResult> Put(Guid sentenceId,[FromBody] CreateSentence command)
         {
             command.SentenceId = Guid.NewGuid();
 
-            await _sentencesService.CreateAsync(command.SentenceId, command.SceneId, command.CharacterId
+            await _sentencesService.CreateAsync(sentenceId, command.SceneId, command.CharacterId
                 , command.Text);
 
             return Created($"/sentences/{command.SentenceId}", null);
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{sentenceId}")]
+        public async Task<IActionResult> Delete(Guid sentenceId)
         {
+            await _sentencesService.DeleteAsync(sentenceId);
+
+            return NoContent();
         }
     }
 }

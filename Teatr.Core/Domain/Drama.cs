@@ -21,9 +21,24 @@ namespace Teatr.Core.Domain
         {
 
         }
-        public void AddAct(Drama drama, string stageDirections, string description, int number, string title)
+
+        public Drama UpdateTitle(string title) 
         {
-            _acts.Add(new Act(this, stageDirections, description, number, title));
+            Title = title;
+
+            return this;
+        }
+        public Drama UpdateAuthor(string author)
+        {
+            Author = author;
+
+            return this;
+        }
+        public Drama UpdateDescription(string description)
+        {
+            Description = description;
+
+            return this;
         }
     }
 }

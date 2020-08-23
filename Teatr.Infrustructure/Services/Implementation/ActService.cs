@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Teatr.Core.Domain;
 using Teatr.Core.Repositories;
 using Teatr.Infrastructure.DTO;
+using Teatr.Infrastructure.Extensions;
 
 namespace Teatr.Infrastructure.Services.Implementation
 {
@@ -19,7 +20,7 @@ namespace Teatr.Infrastructure.Services.Implementation
             _actRepository = actRepository;
             _mapper = mapper;
         }
-        public async Task<ActDto> GetAsync(Guid id)
+        public async Task<ActDetailsDto> GetAsync(Guid id)
         {
             var Act = await _actRepository.GetAsync(id);
 
@@ -28,10 +29,10 @@ namespace Teatr.Infrastructure.Services.Implementation
                 return null;
             }
 
-            return _mapper.Map<ActDto>(Act);
+            return _mapper.Map<ActDetailsDto>(Act);
         }
 
-        public async Task<ActDto> GetAsync(int number)
+        public async Task<ActDetailsDto> GetAsync(int number)
         {
             var Act = await _actRepository.GetAsync(number);
 
@@ -40,7 +41,7 @@ namespace Teatr.Infrastructure.Services.Implementation
                 return null;
             }
 
-            return _mapper.Map<ActDto>(Act);
+            return _mapper.Map<ActDetailsDto>(Act);
         }
 
         public async Task AddSceneAsync(Guid SceneId, string title, string stageDirections, string description, int number)
@@ -62,14 +63,23 @@ namespace Teatr.Infrastructure.Services.Implementation
             await _actRepository.AddAsync(act);
         }
 
-        public Task UpdateAsync(ActDto act)
+        public async Task UpdateAsync(Guid id, Guid dramaId, string title, string description, int number, string stageDirections)
         {
-            throw new NotImplementedException();
+            var act = await _actRepository.GetOrFailAsync(id);     
+
+            act.UpdateDramaId(dramaId)
+                .UpdateTitle(title)
+                .UpdateDescription(description)
+                .UpdateStageDirections(stageDirections)
+                .UpdateNumber(number);
+
+            await _actRepository.UpdateAsync(act);
         }
 
-        public async Task DeleteAsync(ActDto act)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var act = await _actRepository.GetOrFailAsync(id);
+            await _actRepository.DeleteAsync(act);
         }
     }
 }

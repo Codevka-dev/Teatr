@@ -8,8 +8,6 @@ namespace Teatr.Core.Domain
     {
         public Guid? ActorId { get; protected set; }
 
-        public Guid? SentenceId { get; protected set; }
-
         private ISet<User> _actors = new HashSet<User>();
         public IEnumerable<User> Actors => _actors;
         public string Name { get; protected set; }
@@ -20,7 +18,6 @@ namespace Teatr.Core.Domain
         public Character(Guid id,Guid sentenceId, string name, int age, string desciption,string gender)
         {
             Id = id;
-            SentenceId = sentenceId;
             Name = name;
             Age = age;
             Description = desciption;
@@ -34,6 +31,34 @@ namespace Teatr.Core.Domain
         public void AddActor(User user)
         {
             _actors.Add(user);
+        }
+
+        public Character UpdateName(string name)
+        {
+            Name = name;
+
+            return this;
+        }
+
+        public Character UpdateAge(int age)
+        {
+            Age = age;
+
+            return this;
+        }
+
+        public Character UpdateDescription(string description)
+        {
+            Description = description;
+
+            return this;
+        }
+
+        public Character UpdateGender(string gender)
+        {
+            Gender = gender;
+
+            return this;
         }
     }
 }

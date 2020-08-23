@@ -12,7 +12,7 @@ namespace Teatr.Infrastructure.Services
         Task<SentenceDto> GetAsync(Guid id);
         Task CreateAsync(Guid id, Guid sceneId, Guid characterId,string text);
         Task AddCharacterAsync(Guid SentenceId, string name, int age, string description);
-        Task UpdateAsync(SentenceDto Sentence);
-        Task DeleteAsync(SentenceDto Sentence);
+        Task UpdateAsync(Guid id, Guid sceneId, Guid characterId, string text);
+        Task DeleteAsync(Guid id);
     }
 }

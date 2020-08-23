@@ -48,16 +48,22 @@ namespace TeatrApi.Controllers
             return Created($"/characters/{command.CharacterId}", null);
         }
 
-        // PUT: api/Drama/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{characterId}")]
+        public async Task<IActionResult> Put(Guid characterId,[FromBody] UpdateCharacter command)
         {
+            await _characterService.UpdateAsync(characterId, command.Name, command.Age,
+                command.Description,command.Gender);
+
+            return NoContent();
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{characterId}")]
+        public async Task<IActionResult> Delete(Guid characterId)
         {
+            await _characterService.DeleteAsync(characterId);
+
+            return NoContent();
         }
     }
 }

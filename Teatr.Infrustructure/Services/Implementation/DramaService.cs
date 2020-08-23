@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Teatr.Core.Domain;
 using Teatr.Core.Repositories;
 using Teatr.Infrastructure.DTO;
+using Teatr.Infrastructure.Extensions;
 
 namespace Teatr.Infrastructure.Services.Implementation
 {
@@ -19,7 +20,7 @@ namespace Teatr.Infrastructure.Services.Implementation
             _dramaRepository = dramaRepository;
             _mapper = mapper;
         }
-        public async Task<DramaDto> GetAsync(Guid id)
+        public async Task<DramaDetailsDto> GetAsync(Guid id)
         {
             var drama = await _dramaRepository.GetAsync(id);
 
@@ -28,10 +29,10 @@ namespace Teatr.Infrastructure.Services.Implementation
                 return null;
             }
 
-            return _mapper.Map<DramaDto>(drama);
+            return _mapper.Map<DramaDetailsDto>(drama);
         }
 
-        public async Task<DramaDto> GetAsync(string title)
+        public async Task<DramaDetailsDto> GetAsync(string title)
         {
             var drama = await _dramaRepository.GetAsync(title);
 
@@ -40,7 +41,7 @@ namespace Teatr.Infrastructure.Services.Implementation
                 return null;
             }
 
-            return _mapper.Map<DramaDto>(drama);
+            return _mapper.Map<DramaDetailsDto>(drama);
         }
         public async Task<IEnumerable<DramaDto>> BrowseAsync(string title = null)
         {
@@ -73,25 +74,24 @@ namespace Teatr.Infrastructure.Services.Implementation
             await _dramaRepository.AddAsync(drama);
         }
 
-        public async Task DeleteAsync(DramaDto drama)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var drama = await _dramaRepository.GetOrFailAsync(id);
+            await _dramaRepository.DeleteAsync(drama);
         }
         public async Task UpdateAsync(Guid id, string title, string author, string description)
         {
-            var drama = await _dramaRepository.GetAsync(id);
-
-            if (drama == null)
-            {
-                throw new Exception($"Drama name : {id} not exists");
-            }
-
+            var drama = await _dramaRepository.GetOrFailAsync(id);
             drama = await _dramaRepository.GetAsync(title);
 
             if (drama != null)
             {
                 throw new Exception($"Drama name : {title} already exists");
             }
+
+            drama.UpdateAuthor(author)
+                .UpdateTitle(title)
+                .UpdateDescription(description);
 
             await _dramaRepository.UpdateAsync(drama);
         }

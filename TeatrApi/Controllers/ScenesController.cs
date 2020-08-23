@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Teatr.Infrastructure.Commands.Dramas;
+using Teatr.Infrastructure.Commands.Scene;
 using Teatr.Infrastructure.Services;
 
 namespace TeatrApi.Controllers
@@ -41,16 +42,22 @@ namespace TeatrApi.Controllers
             return Created($"/scenes/{command.SceneId}", null);
         }
 
-        // PUT: api/Drama/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{sceneId}")]
+        public async Task<IActionResult> Put(Guid sceneId,[FromBody] UpdateScene command)
         {
+            await _sceneService.UpdateAsync(sceneId, command.ActId, command.StageDirections,command.Description
+                ,command.Number,command.Title);
+
+            return NoContent();
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{sceneId}")]
+        public async Task<IActionResult> Delete(Guid sceneId)
         {
+            await _sceneService.DeleteAsync(sceneId);
+
+            return NoContent();
         }
     }
 }

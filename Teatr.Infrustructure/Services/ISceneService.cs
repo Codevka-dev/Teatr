@@ -9,10 +9,10 @@ namespace Teatr.Infrastructure.Services
 {
     public interface ISceneService
     {
-        Task<SceneDto> GetAsync(Guid id);
-        Task<SceneDto> GetAsync(int number);
+        Task<SceneDetailsDto> GetAsync(Guid id);
+        Task<SceneDetailsDto> GetAsync(int number);
         Task CreateAsync(Guid id, Guid actId, string stageDirections, string desciption, int number, string title);
-        Task UpdateAsync(SceneDto Scene);
-        Task DeleteAsync(SceneDto Scene);
+        Task UpdateAsync(Guid id, Guid actId, string stageDirections, string desciption, int number, string title);
+        Task DeleteAsync(Guid id);
     }
 }

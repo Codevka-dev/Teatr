@@ -9,12 +9,12 @@ namespace Teatr.Infrastructure.Services
 {
     public interface ICharacterService
     {
-        Task<CharacterDto> GetAsync(Guid id);
-        Task<CharacterDto> GetAsync(string name);
+        Task<CharacterDetailsDto> GetAsync(Guid id);
+        Task<CharacterDetailsDto> GetAsync(string name);
         Task<IEnumerable<CharacterDto>> BrowseAsync(string name = null);
         Task CreateAsync(Guid id,Guid sentenceId, string name, int age, string description,string gender);
-        Task AddActor(Guid userId);
-        Task UpdateAsync(CharacterDto Character);
-        Task DeleteAsync(CharacterDto Character);
+
+        Task UpdateAsync(Guid id, string name, int age, string desciption, string gender);
+        Task DeleteAsync(Guid characterId);
     }
 }
